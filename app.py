@@ -65,38 +65,29 @@ else:
 # ======================= Preprocessing =================================
     with preprocessing:
         st.write("# Normalisasi")
-        cleaned= st.tabs(
-            ["Clean data"])
+
 
 # ======== cleanned ===================
-        with cleaned:
-        # Tombol untuk menghapus data NaN dari kolom "Abstrak"
-            datasetClean = pd.read_csv("data/dataset cleaning.csv")
-            st.info("#### Data sudah dibersihkan")
-            st.warning("Proses pembersihan data 4 tahapan:")
-            col1, col2, col3, col4= st.columns(4)
-            with col1:
-                st.write("Missing Values")
-            with col2:
-                st.write("Duplikasi Data")
-            with col3:
-                st.write("Punctuation")
-            with col4:
-                st.write("Stopwords")
 
-            st.dataframe(datasetClean)
+    # Tombol untuk menghapus data NaN dari kolom "Abstrak"
+        datasetClean = pd.read_csv("data/dataset cleaning.csv")
+        st.info("#### Data sudah dibersihkan")
+        st.warning("Proses pembersihan data 4 tahapan:")
+        col1, col2, col3, col4= st.columns(4)
+        with col1:
+            st.write("Missing Values")
+        with col2:
+            st.write("Duplikasi Data")
+        with col3:
+            st.write("Punctuation")
+        with col4:
+            st.write("Stopwords")
 
-            st.success("Panjang Dataset Setelah Preprocessing")
-            st.info(f'{len(datasetClean)} data')
+        st.dataframe(datasetClean)
 
+        st.success("Panjang Dataset Setelah Preprocessing")
+        st.info(f'{len(datasetClean)} data')
 
-# ============ VSM =========================
-#         with vsm:
-#             # ============================ TFIDF ====================
-#             st.success("#### Untuk menentukan bobot data digunakan TF-IDF")
-#             st.info("Berikut hasil dari proses TF-IDF")
-#             tfidf = pd.read_csv("data/tfidf.csv")
-#             st.dataframe(tfidf)
 
 
 # =========================== LDA ===============================
