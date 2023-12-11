@@ -104,11 +104,11 @@ else:
         st.info("### Hasil dari reduksi LDA sebagai berikut:")
 
         st.warning("Proporsi Topik Pada Dokumen")
-        ptd = pd.read_csv("data/Proporsi topik dokumen.csv")
+        ptd = pd.read_csv("data/proporsi topik dokumen.csv")
         st.dataframe(ptd)
 
         st.warning("Proporsi Topik Pada Kata")
-        ptk = pd.read_csv("data/Proporsi topik kata.csv")
+        ptk = pd.read_csv("data/proporsi topik kata.csv")
         st.dataframe(ptk)
 
 # # =========================== Modelling ==================================
