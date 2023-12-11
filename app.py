@@ -65,8 +65,8 @@ else:
 # ======================= Preprocessing =================================
     with preprocessing:
         st.write("# Normalisasi")
-        cleaned, vsm = st.tabs(
-            ["Clean data", "VSM"])
+        cleaned= st.tabs(
+            ["Clean data"])
 
 # ======== cleanned ===================
         with cleaned:
@@ -91,12 +91,12 @@ else:
 
 
 # ============ VSM =========================
-        with vsm:
-            # ============================ TFIDF ====================
-            st.success("#### Untuk menentukan bobot data digunakan TF-IDF")
-            st.info("Berikut hasil dari proses TF-IDF")
-            tfidf = pd.read_csv("data/tfidf.csv")
-            st.dataframe(tfidf)
+#         with vsm:
+#             # ============================ TFIDF ====================
+#             st.success("#### Untuk menentukan bobot data digunakan TF-IDF")
+#             st.info("Berikut hasil dari proses TF-IDF")
+#             tfidf = pd.read_csv("data/tfidf.csv")
+#             st.dataframe(tfidf)
 
 
 # =========================== LDA ===============================
