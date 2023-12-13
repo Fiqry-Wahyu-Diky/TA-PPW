@@ -17,6 +17,10 @@ showWarningOnDirectExecution = False
 # ========== cache =========
 
 
+
+
+
+
 with st.sidebar:
     selected = option_menu(
         menu_title="MENU",
@@ -49,45 +53,14 @@ if selected == "HOME":
 
 # ====================== Project ====================
 else:
-    @st.cache_data
-    def load_dataset():
-        return pd.read_csv("data/dataset crawling antaranews.csv")
-
-
-    @st.cache_data
-    def clean_data():
-        return pd.read_csv("data/dataset cleaning.csv")
-    datasetClean = clean_data()
-
-
-    @st.cache_data()
-    def ptkptd():
-        ptk = pd.read_csv("data/proporsi topik kata.csv")
-        ptd = pd.read_csv("data/proporsi topik dokumen.csv")
-        return ptk, ptd
-    ptk, ptd = ptkptd()
-
-
-    @st.cache_data
-    def load_model_and_data():
-        vectorizer = load("data/tfidf vectorizer.pkl")
-        lda_model = load("data/model lda.pkl")
-        model = load("data/model.pkl")
-        return vectorizer, lda_model, model
-    vectorizer, lda_model, model = load_model_and_data()
-
-
     st.markdown('<h1 style = "text-align: center;">Text Processing</h1>', unsafe_allow_html=True)
     st.write("Oleh | FIQRY WAHYU DIKY W | 200411100125")
     dataset, preprocessing, lda, modelling, implementasi = st.tabs(
 ["Dataset", "Preprocessing", "Reduksi LDA", "Modeling","Implementasi"])
 
-
-
-
 # ====================== Crawling ====================
     with dataset:
-        dataset = load_dataset()
+        dataset = pd.read_csv("data/dataset crawling antaranews.csv")
         st.dataframe(dataset)
         st.info(f"Banyak Dataset : {len(dataset)}")
         st.warning(f'Informasi Dataset')
@@ -98,6 +71,7 @@ else:
     with preprocessing:
         st.write("# Normalisasi")
 # ======== cleanned ===================
+
     # Tombol untuk menghapus data NaN dari kolom "Abstrak"
         st.info("#### Data sudah dibersihkan")
         st.warning("Proses pembersihan data 4 tahapan:")
@@ -111,6 +85,7 @@ else:
         with col4:
             st.write("Stopwords")
 
+        datasetClean = pd.read_csv("data/dataset cleaning.csv")
         st.dataframe(datasetClean)
 
         st.success("Panjang Dataset Setelah Preprocessing")
@@ -120,14 +95,14 @@ else:
 
 # =========================== LDA ===============================
     with lda:
-        st.info("### Hasil dari reduksi LDA sebagai berikut:")
 
+        st.info("### Hasil dari reduksi LDA sebagai berikut:")
         st.warning("Proporsi Topik Pada Dokumen")
-        # ptd = pd.read_csv("data/proporsi topik dokumen.csv")
+        ptd = pd.read_csv("data/proporsi topik dokumen.csv")
         st.dataframe(ptd)
-        #
+
         st.warning("Proporsi Topik Pada Kata")
-        # ptk = pd.read_csv("data/proporsi topik kata.csv")
+        ptk = pd.read_csv("data/proporsi topik kata.csv")
         st.dataframe(ptk)
 
 # # =========================== Modelling ==================================
@@ -146,7 +121,6 @@ else:
 #
 #     # =========================== Implementasi ===============================
     with implementasi:
-
         st.write("# Implementasi")
         st.info(f"Dalam implementasi akan digunakan metode yang paling tinggi akurasinya (dalam evaluasi) yaitu: metode Random Forest dan menggunakan 7 Topik")
         inputan = st.text_area("Masukkan Teks Berita")
@@ -154,13 +128,13 @@ else:
         st.warning(f"VSM yang digunakan yaitu TFIDF")
 
         vectorizer = load("data/tfidf vectorizer.pkl")
-        lda_model = load("data/model lda.pkl")
+        lda = load("data/model lda.pkl")
         model = load("data/model.pkl")
 
 
         if st.button("predict"):
             vecinp = vectorizer.transform(inp)
-            ldainp = lda_model.transform(vecinp)
+            ldainp = lda.transform(vecinp)
             modelinp = model.predict(ldainp)
             st.success("Hasil dari prediksi berita anda adalah:")
             if modelinp == 'politik':
