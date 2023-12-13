@@ -49,27 +49,39 @@ if selected == "HOME":
 
 # ====================== Project ====================
 else:
-    st.markdown('<h1 style = "text-align: center;">Text Processing</h1>', unsafe_allow_html=True)
-    st.write("Oleh | FIQRY WAHYU DIKY W | 200411100125")
-    dataset, preprocessing, lda, modelling, implementasi = st.tabs(
-["Dataset", "Preprocessing", "Reduksi LDA", "Modeling","Implementasi"])
-
-
     @st.cache_data
     def load_dataset():
         return pd.read_csv("data/dataset crawling antaranews.csv")
+
 
     @st.cache_data
     def clean_data():
         return pd.read_csv("data/dataset cleaning.csv")
     datasetClean = clean_data()
 
+
     @st.cache_data()
     def ptkptd():
         ptk = pd.read_csv("data/proporsi topik kata.csv")
         ptd = pd.read_csv("data/proporsi topik dokumen.csv")
-        return  ptk,ptd
-    ptk,ptd = ptkptd()
+        return ptk, ptd
+    ptk, ptd = ptkptd()
+
+
+    @st.cache_data
+    def load_model_and_data():
+        vectorizer = load("data/tfidf vectorizer.pkl")
+        lda_model = load("data/model lda.pkl")
+        model = load("data/model.pkl")
+        return vectorizer, lda_model, model
+    vectorizer, lda_model, model = load_model_and_data()
+
+
+    st.markdown('<h1 style = "text-align: center;">Text Processing</h1>', unsafe_allow_html=True)
+    st.write("Oleh | FIQRY WAHYU DIKY W | 200411100125")
+    dataset, preprocessing, lda, modelling, implementasi = st.tabs(
+["Dataset", "Preprocessing", "Reduksi LDA", "Modeling","Implementasi"])
+
 
 
 
@@ -134,13 +146,6 @@ else:
 #
 #     # =========================== Implementasi ===============================
     with implementasi:
-        @st.cache_data
-        def load_model_and_data():
-            vectorizer = load("data/tfidf vectorizer.pkl")
-            lda_model = load("data/model lda.pkl")
-            model = load("data/model.pkl")
-            return vectorizer, lda_model, model
-        vectorizer, lda_model, model = load_model_and_data()
 
         st.write("# Implementasi")
         st.info(f"Dalam implementasi akan digunakan metode yang paling tinggi akurasinya (dalam evaluasi) yaitu: metode Random Forest dan menggunakan 7 Topik")
